@@ -251,15 +251,12 @@ def _union_lcs(evaluated_sentences, reference_sentence):
   c2 = w1 w3 w8 w9 w5, then the longest common subsequence of r_i and c1 is
   “w1 w2” and the longest common subsequence of r_i and c2 is “w1 w3 w5”. The
   union longest common subsequence of r_i, c1, and c2 is “w1 w2 w3 w5” and
-  LCS_u(r_i, C) = 4/5.
-
+  LCS_u(r_i, C) = 4
   Args:
     evaluated_sentences: The sentences that have been picked by the summarizer
     reference_sentence: One of the sentences in the reference summaries
-
   Returns:
     float: LCS_u(r_i, C)
-
   ValueError:
     Raises exception if a param has len <= 0
   """
@@ -268,16 +265,13 @@ def _union_lcs(evaluated_sentences, reference_sentence):
 
   lcs_union = set()
   reference_words = _split_into_words([reference_sentence])
-  combined_lcs_length = 0
   for eval_s in evaluated_sentences:
     evaluated_words = _split_into_words([eval_s])
     lcs = set(_recon_lcs(reference_words, evaluated_words))
-    combined_lcs_length += len(lcs)
     lcs_union = lcs_union.union(lcs)
 
   union_lcs_count = len(lcs_union)
-  union_lcs_value = union_lcs_count / combined_lcs_length
-  return union_lcs_value
+  return union_lcs_count
 
 
 def rouge_l_summary_level(evaluated_sentences, reference_sentences):
